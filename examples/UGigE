@@ -1,0 +1,25 @@
+#!/usr/bin/env raku
+
+use     Hypervisor::IBM::POWER::HMC::REST::Config::Options;
+need    Hypervisor::IBM::POWER::HMC::REST::HMC;
+
+sub USAGE { Hypervisor::IBM::POWER::HMC::REST::Config::Options::usage(); }
+unit sub MAIN (*%options);
+
+my $mc = Hypervisor::IBM::POWER::HMC::REST::HMC.new(:options(Hypervisor::IBM::POWER::HMC::REST::Config::Options.new(|Map.new(%options.kv))));
+$mc.ManagedSystems.init;
+
+my @managed-systems = $mc.ManagedSystems.Managed-Systems-Names;
+
+for @managed-systems -> $Managed-System-Name {
+#   $mc.ManagedSystems.load;
+    put $Managed-System-Name;
+    for $mc.ManagedSystems.Managed-System-by-SystemName($Managed-System-Name).AssociatedSystemIOConfiguration.IOBuses.IOBus -> $IOBus {
+        next    unless $IOBus.IOSlots.IOSlot.DEFINITE;
+        next    if $IOBus.IOSlots.IOSlot.PartitionName;
+        next    unless $IOBus.IOSlots.IOSlot.PCAdapterID == 5719;
+        put     "\t" ~ $IOBus.IOSlots.IOSlot.RelatedIOAdapter.IOAdapter.DeviceName;
+    }
+}
+
+=finish

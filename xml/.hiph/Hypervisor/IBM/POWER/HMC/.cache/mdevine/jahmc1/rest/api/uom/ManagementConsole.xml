@@ -1,0 +1,173 @@
+
+<feed xmlns="http://www.w3.org/2005/Atom" xmlns:ns2="http://a9.com/-/spec/opensearch/1.1/" xmlns:ns3="http://www.w3.org/1999/xhtml">
+    <id>ded39eda-afe1-3ccf-955e-9cb6b1a5448d</id>
+    <updated>2020-12-04T12:40:59.143-05:00</updated>
+    <link rel="SELF" href="https://jahmc1:12443/rest/api/uom/ManagementConsole"/>
+    <link rel="MANAGEMENT_CONSOLE" href="https://jahmc1:12443/rest/api/uom/ManagementConsole/7f1fc3bc-1af2-37c7-a23d-bfd56d2dbc1b"/>
+    <generator>IBM Power Systems Management Console</generator>
+    <entry>
+        <id>7f1fc3bc-1af2-37c7-a23d-bfd56d2dbc1b</id>
+        <title>ManagementConsole</title>
+        <published>2020-12-04T12:40:59.361-05:00</published>
+        <link rel="SELF" href="https://jahmc1:12443/rest/api/uom/ManagementConsole/7f1fc3bc-1af2-37c7-a23d-bfd56d2dbc1b"/>
+        <author>
+            <name>IBM Power Systems Management Console</name>
+        </author>
+        <etag:etag xmlns:etag="http://www.ibm.com/xmlns/systems/power/firmware/uom/mc/2012_10/" xmlns="http://www.ibm.com/xmlns/systems/power/firmware/uom/mc/2012_10/">-171235227</etag:etag>
+        <content type="application/vnd.ibm.powervm.uom+xml; type=ManagementConsole">
+            <ManagementConsole:ManagementConsole xmlns:ManagementConsole="http://www.ibm.com/xmlns/systems/power/firmware/uom/mc/2012_10/" xmlns="http://www.ibm.com/xmlns/systems/power/firmware/uom/mc/2012_10/" xmlns:ns2="http://www.w3.org/XML/1998/namespace/k2" schemaVersion="V1_0">
+    <Metadata>
+        <Atom>
+            <AtomID>7f1fc3bc-1af2-37c7-a23d-bfd56d2dbc1b</AtomID>
+            <AtomCreated>1607022529465</AtomCreated>
+        </Atom>
+    </Metadata>
+    <MachineTypeModelAndSerialNumber kb="ROR" kxe="false" schemaVersion="V1_0">
+        <Metadata>
+            <Atom/>
+        </Metadata>
+        <MachineType kb="CUR" kxe="false">7063</MachineType>
+        <Model kxe="false" kb="CUR">CR1</Model>
+        <SerialNumber kxe="false" kb="CUR">130FAYA</SerialNumber>
+    </MachineTypeModelAndSerialNumber>
+    <ManagedSystems kxe="false" kb="CUD">
+        <link href="https://jahmc1:12443/rest/api/uom/ManagementConsole/7f1fc3bc-1af2-37c7-a23d-bfd56d2dbc1b/ManagedSystem/aa4af0a7-c546-3a7e-b984-f5dcc581769f" rel="related"/>
+        <link href="https://jahmc1:12443/rest/api/uom/ManagementConsole/7f1fc3bc-1af2-37c7-a23d-bfd56d2dbc1b/ManagedSystem/de0a524e-c256-3de9-9295-3c2b3a5962de" rel="related"/>
+        <link href="https://jahmc1:12443/rest/api/uom/ManagementConsole/7f1fc3bc-1af2-37c7-a23d-bfd56d2dbc1b/ManagedSystem/43dd2568-d873-3d38-9202-662e7042c594" rel="related"/>
+        <link href="https://jahmc1:12443/rest/api/uom/ManagementConsole/7f1fc3bc-1af2-37c7-a23d-bfd56d2dbc1b/ManagedSystem/8dac7f0d-0cbf-3173-a20d-0386e050f03f" rel="related"/>
+    </ManagedSystems>
+    <ManagementConsoleName kxe="false" kb="CUR">jahmc1
+</ManagementConsoleName>
+    <NetworkInterfaces kxe="false" kb="CUD" schemaVersion="V1_0">
+        <Metadata>
+            <Atom/>
+        </Metadata>
+        <ManagementConsoleNetworkInterface schemaVersion="V1_0">
+            <Metadata>
+                <Atom/>
+            </Metadata>
+            <InterfaceName kb="CUD" kxe="false">eth1</InterfaceName>
+            <NetworkAddress kb="CUR" kxe="false">172.16.0.1</NetworkAddress>
+        </ManagementConsoleNetworkInterface>
+        <ManagementConsoleNetworkInterface schemaVersion="V1_0">
+            <Metadata>
+                <Atom/>
+            </Metadata>
+            <InterfaceName kb="CUD" kxe="false">eth0</InterfaceName>
+            <NetworkAddress kb="CUR" kxe="false">10.10.136.48</NetworkAddress>
+        </ManagementConsoleNetworkInterface>
+    </NetworkInterfaces>
+    <TemplateObjectModelVersion kb="ROR" kxe="false" schemaVersion="V1_0">
+        <Metadata>
+            <Atom/>
+        </Metadata>
+        <MinorVersion kb="CUR" kxe="false">1.0</MinorVersion>
+        <SchemaNamespace kxe="false" kb="CUR">http://www.ibm.com/xmlns/systems/power/firmware/templates/mc/2012_10/</SchemaNamespace>
+    </TemplateObjectModelVersion>
+    <UserObjectModelVersion kxe="false" kb="ROR" schemaVersion="V1_0">
+        <Metadata>
+            <Atom/>
+        </Metadata>
+        <MinorVersion kb="CUR" kxe="false">1.0</MinorVersion>
+        <SchemaNamespace kxe="false" kb="CUR">http://www.ibm.com/xmlns/systems/power/firmware/uom/mc/2012_10/</SchemaNamespace>
+    </UserObjectModelVersion>
+    <VersionInfo kb="ROR" kxe="false" schemaVersion="V1_0">
+        <Metadata>
+            <Atom/>
+        </Metadata>
+        <BuildLevel kb="CUD" kxe="false">2009020200</BuildLevel>
+        <Maintenance kxe="false" kb="CUD">0</Maintenance>
+        <Minor kxe="false" kb="CUD">0</Minor>
+        <Release kxe="false" kb="CUD">1</Release>
+        <ServicePackName kxe="false" kb="CUD">941</ServicePackName>
+        <Version kb="CUR" kxe="false">9</Version>
+    </VersionInfo>
+    <WebObjectModelVersion kb="ROR" kxe="false" schemaVersion="V1_0">
+        <Metadata>
+            <Atom/>
+        </Metadata>
+        <MinorVersion kb="CUR" kxe="false">1.0</MinorVersion>
+        <SchemaNamespace kxe="false" kb="CUR">http://www.ibm.com/xmlns/systems/power/firmware/web/mc/2012_10/</SchemaNamespace>
+    </WebObjectModelVersion>
+    <BIOS ksv="V1_2_0" kb="ROR" kxe="false">open-power-IBM-P8DTU-7063CR1-20180105-prod</BIOS>
+    <BaseVersion ksv="V1_2_0" kb="ROR" kxe="false">V9R1</BaseVersion>
+    <Driver ksv="V1_2_0" kxe="false" kb="ROR"/>
+    <LicenseID ksv="V1_2_0" kb="ROR" kxe="false"/>
+    <LicenseFirstYear ksv="V1_2_0" kb="ROR" kxe="false"/>
+    <IFixDetails ksv="V1_3_0" kb="ROO" kxe="false" schemaVersion="V1_0">
+        <Metadata>
+            <Atom/>
+        </Metadata>
+        <IFixDetail schemaVersion="V1_0">
+            <Metadata>
+                <Atom/>
+            </Metadata>
+            <IFix ksv="V1_3_0" kxe="false" kb="ROO">MH01790 - HMC V9R1 Service Pack 1 Release (M921) [ppc64le]</IFix>
+        </IFixDetail>
+        <IFixDetail schemaVersion="V1_0">
+            <Metadata>
+                <Atom/>
+            </Metadata>
+            <IFix ksv="V1_3_0" kxe="false" kb="ROO">MH01801 - iFix for HMC V9R1 M921</IFix>
+        </IFixDetail>
+        <IFixDetail schemaVersion="V1_0">
+            <Metadata>
+                <Atom/>
+            </Metadata>
+            <IFix ksv="V1_3_0" kxe="false" kb="ROO">MH01809 - iFix for HMC V9R1 M921</IFix>
+        </IFixDetail>
+        <IFixDetail schemaVersion="V1_0">
+            <Metadata>
+                <Atom/>
+            </Metadata>
+            <IFix ksv="V1_3_0" kxe="false" kb="ROO">MH01832 - HMC V9R1 M931</IFix>
+        </IFixDetail>
+        <IFixDetail schemaVersion="V1_0">
+            <Metadata>
+                <Atom/>
+            </Metadata>
+            <IFix ksv="V1_3_0" kxe="false" kb="ROO">MH01854 - Required fix for HMC V9R1 M910+ to install M940</IFix>
+        </IFixDetail>
+        <IFixDetail schemaVersion="V1_0">
+            <Metadata>
+                <Atom/>
+            </Metadata>
+            <IFix ksv="V1_3_0" kxe="false" kb="ROO">MH01860 - HMC V9R1 M941</IFix>
+        </IFixDetail>
+        <IFixDetail schemaVersion="V1_0">
+            <Metadata>
+                <Atom/>
+            </Metadata>
+            <IFix ksv="V1_3_0" kxe="false" kb="ROO">MH01865 - iFix for HMC V9R1 M941</IFix>
+        </IFixDetail>
+    </IFixDetails>
+    <PublicSSHKeyValue ksv="V1_3_1" kb="ROO" kxe="false">ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCcdokRfQ6wFsZDYlSviArBxVYe5mj7dCjUk4bDMY4OQw/Hn4EciPcPxLChEq1OzemeMUS/2rD81wd5Lvou0/bioL42Qf0AIKg/Brul8574wVeHwo80HLbReXSW/0sJsS6KsHiLKJ6wCW28/cgAGL72qkE2moXzkGfhYm+UZl9rJTCvkLskzCnANBeZqEv9k2Ya/7F/rXYiQUMK49mPM+HFRSkFjy7EipU1O2MsKDCRFZiV9AKQeyOG/YYGcxYf8MyotPhDvDMUSaYt7VZZLU7kzsCuOQ2ffj1TrmiEv1p4RZ2EKgtPgm1eDiIft+MY1DJMvCfHizXGif1WBh9v6sKh ccfw@localhost.localdomain</PublicSSHKeyValue>
+    <AuthorizedKeysValue ksv="V1_3_1" kb="ROO" kxe="false" schemaVersion="V1_0">
+        <Metadata>
+            <Atom/>
+        </Metadata>
+        <AuthorizedKey>ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAII7pfj3gmbRcVJ1KILhXJQQldxvBFq3UwBsYUhjLwDN5 E028441@W-608863</AuthorizedKey>
+        <AuthorizedKey>ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIP2EdfNUafV02ihLdqvAUQtEyPcTCdKn8CKMkBNFIsIB ed25519-key-20190424</AuthorizedKey>
+        <AuthorizedKey>ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINKLvMtF2haK92ST7twOTvnekyFc2ZXgTrwy2J8DtyWM A028441@CTUNIXVMADMINPv</AuthorizedKey>
+        <AuthorizedKey>ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKc8RGJR8cIYCZGT+9zJMOluzeTDKIkvw0lnQ0qWOnql A028441@JGUNIXVMADMINPv</AuthorizedKey>
+        <AuthorizedKey>ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOFWJqDhhbcnN0DllqOE+/zh7Z5R8E0HgMvZRKaa/3JM mdevine@L-707970</AuthorizedKey>
+    </AuthorizedKeysValue>
+    <ProcConfiguration ksv="V1_5_2" kb="ROO" kxe="false" schemaVersion="V1_0">
+        <Metadata>
+            <Atom/>
+        </Metadata>
+        <NumberOfProcessors ksv="V1_5_2" kxe="false" kb="ROO">48</NumberOfProcessors>
+        <ModelName ksv="V1_5_2" kb="ROO" kxe="false">POWER8 (raw), altivec supported</ModelName>
+        <Architecture ksv="V1_5_2" kb="ROO" kxe="false">ppc64le</Architecture>
+    </ProcConfiguration>
+    <MemConfiguration ksv="V1_5_2" kxe="false" kb="ROO" schemaVersion="V1_0">
+        <Metadata>
+            <Atom/>
+        </Metadata>
+        <TotalMemory ksv="V1_5_2" kxe="false" kb="ROO">32618</TotalMemory>
+        <TotalSwapMemory ksv="V1_5_2" kxe="false" kb="ROO">2047</TotalSwapMemory>
+    </MemConfiguration>
+</ManagementConsole:ManagementConsole>
+        </content>
+    </entry>
+</feed>

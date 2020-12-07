@@ -1,0 +1,14 @@
+#!/usr/bin/env raku
+
+#use     Data::Dump::Tree;
+
+need    Hypervisor::IBM::POWER::HMC::REST::Config::Options;
+need    Hypervisor::IBM::POWER::HMC::REST::HMC;
+
+sub USAGE { Hypervisor::IBM::POWER::HMC::REST::Config::Options::usage(); }
+unit sub MAIN (*%options);
+
+my $mc = Hypervisor::IBM::POWER::HMC::REST::HMC.new(:options(Hypervisor::IBM::POWER::HMC::REST::Config::Options.new(|Map.new(%options.kv))));
+$mc.ManagementConsole.init.dump;
+
+=finish

@@ -1,0 +1,18 @@
+{
+  "cahmc2": {
+    "hmcrest": 1,
+    "hscroot": 1
+  },
+  "jahmc2": {
+    "hscroot": 1,
+    "hmcrest": 1
+  },
+  "cahmc1": {
+    "hmcrest": 1,
+    "hscroot": 1
+  },
+  "jahmc1": {
+    "hmcrest": 1,
+    "hscroot": 1
+  }
+}

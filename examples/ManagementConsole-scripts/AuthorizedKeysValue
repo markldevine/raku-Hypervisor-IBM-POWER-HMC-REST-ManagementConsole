@@ -1,0 +1,13 @@
+#!/usr/bin/env raku
+
+need    Hypervisor::IBM::POWER::HMC::REST::Config::Options;
+need    Hypervisor::IBM::POWER::HMC::REST::HMC;
+
+sub USAGE { Hypervisor::IBM::POWER::HMC::REST::Config::Options::usage(); }
+unit sub MAIN (*%options);
+
+my $mc = Hypervisor::IBM::POWER::HMC::REST::HMC.new(:options(Hypervisor::IBM::POWER::HMC::REST::Config::Options.new(|Map.new(%options.kv))));
+$mc.ManagementConsole.init.load;
+$mc.config.dump.post: $mc.ManagementConsole.AuthorizedKeysValue, :header('AuthorizedKeysValue'), :4indent;
+
+=finish

@@ -1,0 +1,46 @@
+#!/usr/bin/env raku
+
+use     Hypervisor::IBM::POWER::HMC::REST::Config::Options;
+need    Hypervisor::IBM::POWER::HMC::REST::HMC;
+use     Term::Choose :choose, :choose-multi;
+need    Term::TablePrint;
+
+sub USAGE { Hypervisor::IBM::POWER::HMC::REST::Config::Options::usage(); }
+unit sub MAIN (*%options);
+
+my $mc = Hypervisor::IBM::POWER::HMC::REST::HMC.new(:options(Hypervisor::IBM::POWER::HMC::REST::Config::Options.new(|Map.new(%options.kv))));
+$mc.ManagedSystems.init;
+$mc.ManagedSystems.Initialize-Logical-Partitions;
+
+
+my @managed-systems = $mc.ManagedSystems.Managed-Systems-Names;
+
+
+#my @managed-systems;
+#if @managed-systems = choose-multi($mc.ManagedSystems.Managed-Systems-Names, :info(''), :2layout, :prompt('')) {
+#    exit without @managed-systems[0];
+#}
+
+my @worksheet.push: <SystemName PartitionName PartitionID LogicalSerialNumber CurrentProcessorCompatibilityMode>;
+
+for @managed-systems -> $Managed-System-Name {
+    for $mc.ManagedSystems.Managed-System-by-SystemName($Managed-System-Name).LogicalPartitions.Logical-Partition-Names -> $lp-name {
+        my $lp      = $mc.ManagedSystems.Managed-System-by-SystemName($Managed-System-Name).LogicalPartitions.Logical-Partition-by-Name($lp-name);
+        my @row;
+        @row[0]     = $Managed-System-Name;
+        @row[1]     = $lp.PartitionName;
+        @row[2]     = $lp.PartitionID;
+        @row[3]     = $lp.LogicalSerialNumber;
+        @row[4]     = $lp.CurrentProcessorCompatibilityMode;
+        @worksheet.push: @row;
+    }
+}
+
+my $pt = Term::TablePrint.new();
+$pt.print-table(@worksheet, :color(1));
+
+for @worksheet -> @row {
+    @row.join(',').put;
+}
+
+=finish

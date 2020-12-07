@@ -1,0 +1,19 @@
+#!/usr/bin/env raku
+
+need    Hypervisor::IBM::POWER::HMC::REST::Config::Options;
+need    Hypervisor::IBM::POWER::HMC::REST::HMC;
+
+sub USAGE { Hypervisor::IBM::POWER::HMC::REST::Config::Options::usage(); }
+unit sub MAIN (*%options);
+
+my $mc = Hypervisor::IBM::POWER::HMC::REST::HMC.new(:options(Hypervisor::IBM::POWER::HMC::REST::Config::Options.new(|Map.new(%options.kv))));
+$mc.ManagementConsole.init.load;
+$mc.ManagementConsole.NetworkInterfaces.dump;
+#$mc.ManagementConsole.NetworkInterfaces.dump(:column(18 + $mc.config.options.tab-stop));
+
+=finish
+
+$mc.config.data.post: :header('NetworkInterfaces');
+for $mc.ManagementConsole.NetworkInterfaces.ManagementConsoleNetworkInterface -> $ni {
+    $mc.config.data.post: sprintf("%-7s%-17s%s", $ni.InterfaceName, $ni.NetworkAddressIPV4, $ni.NetworkAddressIPV6), :4indent;
+}
