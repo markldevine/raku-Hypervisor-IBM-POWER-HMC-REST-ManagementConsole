@@ -41,7 +41,7 @@ method init () {
     for self.etl-branches(:TAG<ManagementConsoleNetworkInterface>, :$!xml) -> $mcni {
         @!ManagementConsoleNetworkInterface.push: Hypervisor::IBM::POWER::HMC::REST::ManagementConsole::NetworkInterfaces::ManagementConsoleNetworkInterface.new(:xml($mcni), :$!config);
     }
-    self.load               if self.config.optimization-init-load;
+    self.load               if self.config.optimizations.init-load;
     $!initialized           = True;
     self;
 }

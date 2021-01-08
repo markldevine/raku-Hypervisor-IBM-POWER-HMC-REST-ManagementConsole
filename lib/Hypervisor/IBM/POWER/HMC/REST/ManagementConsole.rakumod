@@ -96,7 +96,7 @@ method init () {
     $!ProcConfiguration                     = Hypervisor::IBM::POWER::HMC::REST::ManagementConsole::ProcConfiguration.new(:$!config, :xml($!xml-ProcConfiguration));
     $!VersionInfo                           = Hypervisor::IBM::POWER::HMC::REST::ManagementConsole::VersionInfo.new(:$!config, :xml($!xml-VersionInfo));
     $!initialized                           = True;
-    self.load                               if self.config.optimization-init-load;
+    self.load                               if self.config.optimizations.init-load;
     self.config.diag.post:                  sprintf("%-20s %10s: %11s", self.^name.subst(/^.+'::'(.+)$/, {$0}), 'INITIALIZE', sprintf("%.3f", now - $init-start)) if %*ENV<HIPH_INIT>;
     self;
 }
