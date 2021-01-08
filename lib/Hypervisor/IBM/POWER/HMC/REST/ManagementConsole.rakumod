@@ -27,7 +27,7 @@ has     Bool                                                                    
 has     Bool                                                                                    $.loaded = False;
 has     Str                                                                                     $.id;
 has     Str                                                                                     @.AuthorizedKeysValue;
-has     Str                                                                                     $.BaseVersion;
+has     Str                                                                                     $.BaseVersion is conditional-initialization-attribute;
 has     Str                                                                                     $.BIOS;
 has     Str                                                                                     @.IFixDetails;
 has     Hypervisor::IBM::POWER::HMC::REST::ManagementConsole::MachineTypeModelAndSerialNumber   $.MachineTypeModelAndSerialNumber;
