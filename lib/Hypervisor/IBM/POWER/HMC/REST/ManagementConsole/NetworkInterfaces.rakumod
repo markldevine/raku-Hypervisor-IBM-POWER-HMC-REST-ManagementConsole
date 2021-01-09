@@ -2,6 +2,7 @@ need    Hypervisor::IBM::POWER::HMC::REST::Config;
 need    Hypervisor::IBM::POWER::HMC::REST::Config::Analyze;
 need    Hypervisor::IBM::POWER::HMC::REST::Config::Dump;
 need    Hypervisor::IBM::POWER::HMC::REST::Config::Optimize;
+use     Hypervisor::IBM::POWER::HMC::REST::Config::Traits;
 need    Hypervisor::IBM::POWER::HMC::REST::ETL::XML;
 need    Hypervisor::IBM::POWER::HMC::REST::ManagementConsole::NetworkInterfaces::ManagementConsoleNetworkInterface;
 unit    class Hypervisor::IBM::POWER::HMC::REST::ManagementConsole::NetworkInterfaces:api<1>:auth<Mark Devine (mark@markdevine.com)>
@@ -10,14 +11,13 @@ unit    class Hypervisor::IBM::POWER::HMC::REST::ManagementConsole::NetworkInter
             does Hypervisor::IBM::POWER::HMC::REST::Config::Optimize
             does Hypervisor::IBM::POWER::HMC::REST::ETL::XML;
 
-my      Bool                                                                                                        $names-checked = False;
-my      Bool                                                                                                        $analyzed = False;
-my      Lock                                                                                                        $lock = Lock.new;
+my      Bool                                                                                                        $names-checked                      = False;
+my      Bool                                                                                                        $analyzed                           = False;
+my      Lock                                                                                                        $lock                               = Lock.new;
 
-has     Hypervisor::IBM::POWER::HMC::REST::Config                                                                   $.config is required;
-has     Bool                                                                                                        $.initialized = False;
-has     Bool                                                                                                        $.loaded = False;
-has     Hypervisor::IBM::POWER::HMC::REST::ManagementConsole::NetworkInterfaces::ManagementConsoleNetworkInterface  @.ManagementConsoleNetworkInterface;
+has     Hypervisor::IBM::POWER::HMC::REST::Config                                                                   $.config                            is required;
+has     Bool                                                                                                        $.initialized                       = False;
+has     Hypervisor::IBM::POWER::HMC::REST::ManagementConsole::NetworkInterfaces::ManagementConsoleNetworkInterface  @.ManagementConsoleNetworkInterface is conditional-initialization-attribute;
 
 method  xml-name-exceptions () { return set <Metadata>; }
 
@@ -38,22 +38,13 @@ submethod TWEAK {
 method init () {
     return self             if $!initialized;
     self.config.diag.post:  self.^name ~ '::' ~ &?ROUTINE.name if %*ENV<HIPH_METHOD>;
-    for self.etl-branches(:TAG<ManagementConsoleNetworkInterface>, :$!xml) -> $mcni {
-        @!ManagementConsoleNetworkInterface.push: Hypervisor::IBM::POWER::HMC::REST::ManagementConsole::NetworkInterfaces::ManagementConsoleNetworkInterface.new(:xml($mcni), :$!config);
-    }
-    self.load               if self.config.optimizations.init-load;
-    $!initialized           = True;
-    self;
-}
-
-method load () {
-    return self             if $!loaded;
-    self.config.diag.post:  self.^name ~ '::' ~ &?ROUTINE.name if %*ENV<HIPH_METHOD>;
-    for @!ManagementConsoleNetworkInterface -> $mcni {
-        $mcni.load;
+    if self.attribute-is-accessed(self.^name, 'ManagementConsoleNetworkInterface') {
+        for self.etl-branches(:TAG<ManagementConsoleNetworkInterface>, :$!xml) -> $mcni {
+            @!ManagementConsoleNetworkInterface.push: Hypervisor::IBM::POWER::HMC::REST::ManagementConsole::NetworkInterfaces::ManagementConsoleNetworkInterface.new(:xml($mcni), :$!config);
+        }
     }
     $!xml                   = Nil;
-    $!loaded                = True;
+    $!initialized           = True;
     self;
 }
 
