@@ -48,19 +48,19 @@ has     Hypervisor::IBM::POWER::HMC::REST::Atom                                 
 has     Hypervisor::IBM::POWER::HMC::REST::Config                                               $.config is required;
 has     Bool                                                                                    $.initialized = False;
 has     Bool                                                                                    $.loaded = False;
-has     Str                                                                                     $.id;
-has     Str                                                                                     @.AuthorizedKeysValue;
-has     Str                                                                                     $.BaseVersion is conditional-initialization-attribute;
-has     Str                                                                                     $.BIOS;
-has     Str                                                                                     @.IFixDetails;
-has     Hypervisor::IBM::POWER::HMC::REST::ManagementConsole::MachineTypeModelAndSerialNumber   $.MachineTypeModelAndSerialNumber;
-has     URI                                                                                     @.ManagedSystems;
-has     Str                                                                                     $.ManagementConsoleName;
-has     Hypervisor::IBM::POWER::HMC::REST::ManagementConsole::MemConfiguration                  $.MemConfiguration;
-has     Hypervisor::IBM::POWER::HMC::REST::ManagementConsole::NetworkInterfaces                 $.NetworkInterfaces;
-has     Hypervisor::IBM::POWER::HMC::REST::ManagementConsole::ProcConfiguration                 $.ProcConfiguration;
-has     Str                                                                                     $.PublicSSHKeyValue;
-has     Hypervisor::IBM::POWER::HMC::REST::ManagementConsole::VersionInfo                       $.VersionInfo;
+has     Str                                                                                     $.id                                    is conditional-initialization-attribute;
+has     Str                                                                                     @.AuthorizedKeysValue                   is conditional-initialization-attribute;
+has     Str                                                                                     $.BaseVersion                           is conditional-initialization-attribute;
+has     Str                                                                                     $.BIOS                                  is conditional-initialization-attribute;
+has     Str                                                                                     @.IFixDetails                           is conditional-initialization-attribute;
+has     Hypervisor::IBM::POWER::HMC::REST::ManagementConsole::MachineTypeModelAndSerialNumber   $.MachineTypeModelAndSerialNumber       is conditional-initialization-attribute;
+has     URI                                                                                     @.ManagedSystems                        is conditional-initialization-attribute;
+has     Str                                                                                     $.ManagementConsoleName                 is conditional-initialization-attribute;
+has     Hypervisor::IBM::POWER::HMC::REST::ManagementConsole::MemConfiguration                  $.MemConfiguration                      is conditional-initialization-attribute;
+has     Hypervisor::IBM::POWER::HMC::REST::ManagementConsole::NetworkInterfaces                 $.NetworkInterfaces                     is conditional-initialization-attribute;
+has     Hypervisor::IBM::POWER::HMC::REST::ManagementConsole::ProcConfiguration                 $.ProcConfiguration                     is conditional-initialization-attribute;
+has     Str                                                                                     $.PublicSSHKeyValue                     is conditional-initialization-attribute;
+has     Hypervisor::IBM::POWER::HMC::REST::ManagementConsole::VersionInfo                       $.VersionInfo                           is conditional-initialization-attribute;
 
 has     LibXML::Element                                                                         $.xml-entry;
 has     LibXML::Element                                                                         $.xml-content;
@@ -101,23 +101,23 @@ method init () {
     });
     self.etl-node-name-check                if $proceed-with-name-check;
     self.config.diag.post:                  sprintf("%-20s %10s: %11s", self.^name.subst(/^.+'::'(.+)$/, {$0}), 'PARSE', sprintf("%.3f", now - $parse-start)) if %*ENV<HIPH_PARSE>;
-    $!xml-entry                             = self.etl-branch(:TAG<entry>,                                  :$!xml);
-    $!xml-content                           = self.etl-branch(:TAG<content>,                                :xml($!xml-entry));
-    $!xml-ManagementConsole                 = self.etl-branch(:TAG<ManagementConsole:ManagementConsole>,    :xml($!xml-content));
-    $!atom                                  = self.etl-atom(:xml(self.etl-branch(:TAG<Metadata>,            :xml($!xml-ManagementConsole))));
-    $!xml-AuthorizedKeysValue               = self.etl-branch(:TAG<AuthorizedKeysValue>,                    :xml($!xml-ManagementConsole));
-    $!xml-IFixDetails                       = self.etl-branch(:TAG<IFixDetails>,                            :xml($!xml-ManagementConsole));
-    $!xml-MachineTypeModelAndSerialNumber   = self.etl-branch(:TAG<MachineTypeModelAndSerialNumber>,        :xml($!xml-ManagementConsole));
-    $!xml-ManagedSystems                    = self.etl-branch(:TAG<ManagedSystems>,                         :xml($!xml-ManagementConsole));
-    $!xml-MemConfiguration                  = self.etl-branch(:TAG<MemConfiguration>,                       :xml($!xml-ManagementConsole));
-    $!xml-NetworkInterfaces                 = self.etl-branch(:TAG<NetworkInterfaces>,                      :xml($!xml-ManagementConsole));
-    $!xml-ProcConfiguration                 = self.etl-branch(:TAG<ProcConfiguration>,                      :xml($!xml-ManagementConsole));
-    $!xml-VersionInfo                       = self.etl-branch(:TAG<VersionInfo>,                            :xml($!xml-ManagementConsole));
-    $!MachineTypeModelAndSerialNumber       = Hypervisor::IBM::POWER::HMC::REST::ManagementConsole::MachineTypeModelAndSerialNumber.new(:$!config, :xml($!xml-MachineTypeModelAndSerialNumber));
-    $!MemConfiguration                      = Hypervisor::IBM::POWER::HMC::REST::ManagementConsole::MemConfiguration.new(:$!config, :xml($!xml-MemConfiguration));
-    $!NetworkInterfaces                     = Hypervisor::IBM::POWER::HMC::REST::ManagementConsole::NetworkInterfaces.new(:$!config, :xml($!xml-NetworkInterfaces)).init;
-    $!ProcConfiguration                     = Hypervisor::IBM::POWER::HMC::REST::ManagementConsole::ProcConfiguration.new(:$!config, :xml($!xml-ProcConfiguration));
-    $!VersionInfo                           = Hypervisor::IBM::POWER::HMC::REST::ManagementConsole::VersionInfo.new(:$!config, :xml($!xml-VersionInfo));
+    $!xml-entry                             = self.etl-branch(:TAG<entry>,                                                                          :$!xml);
+    $!xml-content                           = self.etl-branch(:TAG<content>,                                                                        :xml($!xml-entry));
+    $!xml-ManagementConsole                 = self.etl-branch(:TAG<ManagementConsole:ManagementConsole>,                                            :xml($!xml-content));
+    $!atom                                  = self.etl-atom(:xml(self.etl-branch(:TAG<Metadata>,                                                    :xml($!xml-ManagementConsole))));
+    $!xml-AuthorizedKeysValue               = self.etl-branch(:TAG<AuthorizedKeysValue>,                                                            :xml($!xml-ManagementConsole));                 #%%% check the branch before doing this...
+    $!xml-IFixDetails                       = self.etl-branch(:TAG<IFixDetails>,                                                                    :xml($!xml-ManagementConsole));                 #%%% check the branch before doing this...
+    $!xml-MachineTypeModelAndSerialNumber   = self.etl-branch(:TAG<MachineTypeModelAndSerialNumber>,                                                :xml($!xml-ManagementConsole));                 #%%% check the branch before doing this...
+    $!xml-ManagedSystems                    = self.etl-branch(:TAG<ManagedSystems>,                                                                 :xml($!xml-ManagementConsole));                 #%%% check the branch before doing this...
+    $!xml-MemConfiguration                  = self.etl-branch(:TAG<MemConfiguration>,                                                               :xml($!xml-ManagementConsole));                 #%%% check the branch before doing this...
+    $!xml-NetworkInterfaces                 = self.etl-branch(:TAG<NetworkInterfaces>,                                                              :xml($!xml-ManagementConsole));                 #%%% check the branch before doing this...
+    $!xml-ProcConfiguration                 = self.etl-branch(:TAG<ProcConfiguration>,                                                              :xml($!xml-ManagementConsole));                 #%%% check the branch before doing this...
+    $!xml-VersionInfo                       = self.etl-branch(:TAG<VersionInfo>,                                                                    :xml($!xml-ManagementConsole));                 #%%% check the branch before doing this...
+    $!MachineTypeModelAndSerialNumber       = Hypervisor::IBM::POWER::HMC::REST::ManagementConsole::MachineTypeModelAndSerialNumber.new(:$!config,  :xml($!xml-MachineTypeModelAndSerialNumber));   #%%% check the branch before doing this...
+    $!MemConfiguration                      = Hypervisor::IBM::POWER::HMC::REST::ManagementConsole::MemConfiguration.new(:$!config,                 :xml($!xml-MemConfiguration));                  #%%% check the branch before doing this...
+    $!NetworkInterfaces                     = Hypervisor::IBM::POWER::HMC::REST::ManagementConsole::NetworkInterfaces.new(:$!config,                :xml($!xml-NetworkInterfaces)).init;            #%%% check the branch before doing this...  %%% has .init()...
+    $!ProcConfiguration                     = Hypervisor::IBM::POWER::HMC::REST::ManagementConsole::ProcConfiguration.new(:$!config,                :xml($!xml-ProcConfiguration));                 #%%% check the branch before doing this...
+    $!VersionInfo                           = Hypervisor::IBM::POWER::HMC::REST::ManagementConsole::VersionInfo.new(:$!config,                      :xml($!xml-VersionInfo));                       #%%% check the branch before doing this...
     $!initialized                           = True;
     self.load                               if self.config.optimizations.init-load;
     self.config.diag.post:                  sprintf("%-20s %10s: %11s", self.^name.subst(/^.+'::'(.+)$/, {$0}), 'INITIALIZE', sprintf("%.3f", now - $init-start)) if %*ENV<HIPH_INIT>;
@@ -135,7 +135,7 @@ method load () {
     self.ProcConfiguration.load;
     self.VersionInfo.load;
     @!AuthorizedKeysValue   = self.etl-texts(:TAG<AuthorizedKey>,           :xml($!xml-AuthorizedKeysValue));
-    $!BaseVersion           = self.etl-text(:TAG<BaseVersion>,              :xml($!xml-ManagementConsole));
+    $!BaseVersion           = self.etl-text(:TAG<BaseVersion>,              :xml($!xml-ManagementConsole))      if self.attribute-is-accessed(self.^name, 'BaseVersion');
     $!BIOS                  = self.etl-text(:TAG<BIOS>,                     :xml($!xml-ManagementConsole));
     for self.etl-branches(:TAG<IFixDetail>, :xml($!xml-IFixDetails)) -> $xml-IFixDetail {
         @.IFixDetails.push: self.etl-text(:TAG<IFix>, :xml($xml-IFixDetail));
