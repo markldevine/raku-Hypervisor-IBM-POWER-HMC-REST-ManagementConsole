@@ -11,7 +11,6 @@ need    Hypervisor::IBM::POWER::HMC::REST::ManagementConsole::NetworkInterfaces;
 need    Hypervisor::IBM::POWER::HMC::REST::ManagementConsole::ProcConfiguration;
 need    Hypervisor::IBM::POWER::HMC::REST::ManagementConsole::VersionInfo;
 use     URI;
-use     LibXML;
 unit    class Hypervisor::IBM::POWER::HMC::REST::ManagementConsole:api<1>:auth<Mark Devine (mark@markdevine.com)>
             does Hypervisor::IBM::POWER::HMC::REST::Config::Analyze
             does Hypervisor::IBM::POWER::HMC::REST::Config::Dump
