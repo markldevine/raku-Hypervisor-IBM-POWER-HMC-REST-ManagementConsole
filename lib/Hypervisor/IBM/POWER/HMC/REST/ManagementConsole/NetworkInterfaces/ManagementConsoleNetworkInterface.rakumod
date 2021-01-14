@@ -45,14 +45,14 @@ method init () {
     $!InterfaceName         = self.etl-text(:TAG<InterfaceName>,    :$!xml) if self.attribute-is-accessed(self.^name, 'InterfaceName');
     $!NetworkAddress        = self.etl-text(:TAG<NetworkAddress>,   :$!xml) if self.attribute-is-accessed(self.^name, 'NetworkAddress');
     my ($ipv4, $ipv6)       = $!NetworkAddress.split: /\s+/;
-#   try {
+    try {
 #       $!NetworkAddressIPV4 = $ipv4 if IP::Addr.new($ipv4);
-        $!NetworkAddressIPV4 = $ipv4 if ip-is-ipv4($ipv4);
-#   }
-#   try {
+        $!NetworkAddressIPV4 = $ipv4 if $ipv4 && ip-is-ipv4($ipv4);
+    }
+    try {
 #       $!NetworkAddressIPV6 = $ipv6 if IP::Addr.new($ipv6);
-        $!NetworkAddressIPV6 = $ipv6 if ip-is-ipv6($ipv6);
-#   }
+        $!NetworkAddressIPV6 = $ipv6 if $ipv6 && ip-is-ipv6($ipv6);
+    }
     $!xml                   = Nil;
     $!initialized           = True;
     self;
