@@ -48,14 +48,11 @@ method init () {
     my ($ipv4, $ipv6)       = $!NetworkAddress.split: /\s+/;
     try {
 #       $!NetworkAddressIPV4 = $ipv4 if IP::Addr.new($ipv4);
-        $!NetworkAddressIPV4 = $ipv4 if $ipv4 && ip-is-ipv4($ipv4);
+        $!NetworkAddressIPV4 = $ipv4 if $ipv4 && Net::IP::ip-is-ipv4($ipv4);
     }
     try {
 #       $!NetworkAddressIPV6 = $ipv6 if IP::Addr.new($ipv6);
-say '$ipv6 = <' ~ $ipv6 ~ '>';
-#       with $ipv6 {
-#           $!NetworkAddressIPV6 = $ipv6 if $ipv6 && ip-is-ipv6($ipv6);
-#       }
+        $!NetworkAddressIPV6 = $ipv6 if $ipv6 && Net::IP::ip-is-ipv6($ipv6);
     }
     $!xml                   = Nil;
     $!initialized           = True;
