@@ -4,7 +4,8 @@ need    Hypervisor::IBM::POWER::HMC::REST::Config::Dump;
 need    Hypervisor::IBM::POWER::HMC::REST::Config::Optimize;
 use     Hypervisor::IBM::POWER::HMC::REST::Config::Traits;
 need    Hypervisor::IBM::POWER::HMC::REST::ETL::XML;
-use     Net::IP :ip-is-ipv4, :ip-is-ipv6;
+#use     Net::IP :ip-is-ipv4, :ip-is-ipv6;
+use     Net::IP;
 #use     IP::Addr;
 unit    class Hypervisor::IBM::POWER::HMC::REST::ManagementConsole::NetworkInterfaces::ManagementConsoleNetworkInterface:api<1>:auth<Mark Devine (mark@markdevine.com)>
             does Hypervisor::IBM::POWER::HMC::REST::Config::Analyze
@@ -51,7 +52,10 @@ method init () {
     }
     try {
 #       $!NetworkAddressIPV6 = $ipv6 if IP::Addr.new($ipv6);
-        $!NetworkAddressIPV6 = $ipv6 if $ipv6 && ip-is-ipv6($ipv6);
+say '$ipv6 = <' ~ $ipv6 ~ '>';
+#       with $ipv6 {
+#           $!NetworkAddressIPV6 = $ipv6 if $ipv6 && ip-is-ipv6($ipv6);
+#       }
     }
     $!xml                   = Nil;
     $!initialized           = True;
