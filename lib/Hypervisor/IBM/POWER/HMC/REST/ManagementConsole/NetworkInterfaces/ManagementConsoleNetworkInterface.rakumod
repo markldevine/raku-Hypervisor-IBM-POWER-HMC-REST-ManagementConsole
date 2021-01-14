@@ -4,9 +4,7 @@ need    Hypervisor::IBM::POWER::HMC::REST::Config::Dump;
 need    Hypervisor::IBM::POWER::HMC::REST::Config::Optimize;
 use     Hypervisor::IBM::POWER::HMC::REST::Config::Traits;
 need    Hypervisor::IBM::POWER::HMC::REST::ETL::XML;
-#use     Net::IP :ip-is-ipv4, :ip-is-ipv6;
 use     Net::IP;
-#use     IP::Addr;
 unit    class Hypervisor::IBM::POWER::HMC::REST::ManagementConsole::NetworkInterfaces::ManagementConsoleNetworkInterface:api<1>:auth<Mark Devine (mark@markdevine.com)>
             does Hypervisor::IBM::POWER::HMC::REST::Config::Analyze
             does Hypervisor::IBM::POWER::HMC::REST::Config::Dump
@@ -47,11 +45,9 @@ method init () {
     $!NetworkAddress        = self.etl-text(:TAG<NetworkAddress>,   :$!xml) if self.attribute-is-accessed(self.^name, 'NetworkAddress');
     my ($ipv4, $ipv6)       = $!NetworkAddress.split: /\s+/;
     try {
-#       $!NetworkAddressIPV4 = $ipv4 if IP::Addr.new($ipv4);
         $!NetworkAddressIPV4 = $ipv4 if $ipv4 && Net::IP::ip-is-ipv4($ipv4);
     }
     try {
-#       $!NetworkAddressIPV6 = $ipv6 if IP::Addr.new($ipv6);
         $!NetworkAddressIPV6 = $ipv6 if $ipv6 && Net::IP::ip-is-ipv6($ipv6);
     }
     $!xml                   = Nil;
