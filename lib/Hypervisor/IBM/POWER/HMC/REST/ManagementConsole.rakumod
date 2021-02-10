@@ -62,16 +62,17 @@ method init () {
 
     my $parse-start                         = now;
     self.etl-parse-path(:$xml-path);
-    my $proceed-with-name-check             = False;
-    $lock.protect({
-        if !$names-checked  { $proceed-with-name-check = True; $names-checked = True; }
-    });
-    self.etl-node-name-check                if $proceed-with-name-check;
     self.config.diag.post:                  sprintf("%-20s %10s: %11s", self.^name.subst(/^.+'::'(.+)$/, {$0}), 'PARSE', sprintf("%.3f", now - $parse-start)) if %*ENV<HIPH_PARSE>;
 
     my $xml-entry                           = self.etl-branch(:TAG<entry>,                                                                          :$!xml);
     my $xml-content                         = self.etl-branch(:TAG<content>,                                                                        :xml($xml-entry));
     my $xml-ManagementConsole               = self.etl-branch(:TAG<ManagementConsole:ManagementConsole>,                                            :xml($xml-content));
+
+    my $proceed-with-name-check             = False;
+    $lock.protect({
+        if !$names-checked  { $proceed-with-name-check = True; $names-checked = True; }
+    });
+    self.etl-node-name-check(:xml($xml-ManagementConsole)) if $proceed-with-name-check;
 
     $!atom                                  = self.etl-atom(:xml(self.etl-branch(:TAG<Metadata>,                                                    :xml($xml-ManagementConsole))))                 if self.attribute-is-accessed(self.^name, 'BaseVersion');
     $!id                                    = self.etl-text(:TAG<id>,                                                                               :xml($xml-entry))                               if self.attribute-is-accessed(self.^name, 'id');
