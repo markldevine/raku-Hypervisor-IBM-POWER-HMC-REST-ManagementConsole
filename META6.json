@@ -19,8 +19,11 @@
         "Hypervisor::IBM::POWER::HMC::REST::ManagementConsole::MemConfiguration": "lib/Hypervisor/IBM/POWER/HMC/REST/ManagementConsole/MemConfiguration.rakumod",
         "Hypervisor::IBM::POWER::HMC::REST::ManagementConsole::NetworkInterfaces": "lib/Hypervisor/IBM/POWER/HMC/REST/ManagementConsole/NetworkInterfaces.rakumod",
         "Hypervisor::IBM::POWER::HMC::REST::ManagementConsole::NetworkInterfaces::ManagementConsoleNetworkInterface": "lib/Hypervisor/IBM/POWER/HMC/REST/ManagementConsole/NetworkInterfaces/ManagementConsoleNetworkInterface.rakumod",
+        "Hypervisor::IBM::POWER::HMC::REST::ManagementConsole::TemplateObjectModelVersion": "lib/Hypervisor/IBM/POWER/HMC/REST/ManagementConsole/TemplateObjectModelVersion.rakumod",
+        "Hypervisor::IBM::POWER::HMC::REST::ManagementConsole::UserObjectModelVersion": "lib/Hypervisor/IBM/POWER/HMC/REST/ManagementConsole/UserObjectModelVersion.rakumod",
         "Hypervisor::IBM::POWER::HMC::REST::ManagementConsole::ProcConfiguration": "lib/Hypervisor/IBM/POWER/HMC/REST/ManagementConsole/ProcConfiguration.rakumod",
-        "Hypervisor::IBM::POWER::HMC::REST::ManagementConsole::VersionInfo": "lib/Hypervisor/IBM/POWER/HMC/REST/ManagementConsole/VersionInfo.rakumod"
+        "Hypervisor::IBM::POWER::HMC::REST::ManagementConsole::VersionInfo": "lib/Hypervisor/IBM/POWER/HMC/REST/ManagementConsole/VersionInfo.rakumod",
+        "Hypervisor::IBM::POWER::HMC::REST::ManagementConsole::WebObjectModelVersion": "lib/Hypervisor/IBM/POWER/HMC/REST/ManagementConsole/WebObjectModelVersion.rakumod"
     },
     "resources":    [],
     "source-url":   "https://github.com/markldevine/raku-Hypervisor-IBM-POWER-HMC-REST-ManagementConsole.git",

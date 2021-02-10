@@ -8,6 +8,9 @@ need    Hypervisor::IBM::POWER::HMC::REST::ETL::XML;
 need    Hypervisor::IBM::POWER::HMC::REST::ManagementConsole::MachineTypeModelAndSerialNumber;
 need    Hypervisor::IBM::POWER::HMC::REST::ManagementConsole::MemConfiguration;
 need    Hypervisor::IBM::POWER::HMC::REST::ManagementConsole::NetworkInterfaces;
+need    Hypervisor::IBM::POWER::HMC::REST::ManagementConsole::TemplateObjectModelVersion;
+need    Hypervisor::IBM::POWER::HMC::REST::ManagementConsole::UserObjectModelVersion;
+need    Hypervisor::IBM::POWER::HMC::REST::ManagementConsole::WebObjectModelVersion;
 need    Hypervisor::IBM::POWER::HMC::REST::ManagementConsole::ProcConfiguration;
 need    Hypervisor::IBM::POWER::HMC::REST::ManagementConsole::VersionInfo;
 use     URI;
@@ -29,17 +32,23 @@ has     Str                                                                     
 has     Str                                                                                     @.AuthorizedKeysValue                   is conditional-initialization-attribute;
 has     Str                                                                                     $.BaseVersion                           is conditional-initialization-attribute;
 has     Str                                                                                     $.BIOS                                  is conditional-initialization-attribute;
+has     Str                                                                                     $.Driver                                is conditional-initialization-attribute;
+has     Str                                                                                     $.LicenseID                             is conditional-initialization-attribute;
+has     Str                                                                                     $.LicenseFirstYear                      is conditional-initialization-attribute;
 has     Str                                                                                     @.IFixDetails                           is conditional-initialization-attribute;
 has     Hypervisor::IBM::POWER::HMC::REST::ManagementConsole::MachineTypeModelAndSerialNumber   $.MachineTypeModelAndSerialNumber       is conditional-initialization-attribute;
 has     URI                                                                                     @.ManagedSystems                        is conditional-initialization-attribute;
 has     Str                                                                                     $.ManagementConsoleName                 is conditional-initialization-attribute;
 has     Hypervisor::IBM::POWER::HMC::REST::ManagementConsole::MemConfiguration                  $.MemConfiguration                      is conditional-initialization-attribute;
 has     Hypervisor::IBM::POWER::HMC::REST::ManagementConsole::NetworkInterfaces                 $.NetworkInterfaces                     is conditional-initialization-attribute;
+has     Hypervisor::IBM::POWER::HMC::REST::ManagementConsole::TemplateObjectModelVersion        $.TemplateObjectModelVersion            is conditional-initialization-attribute;
+has     Hypervisor::IBM::POWER::HMC::REST::ManagementConsole::UserObjectModelVersion            $.UserObjectModelVersion                is conditional-initialization-attribute;
 has     Hypervisor::IBM::POWER::HMC::REST::ManagementConsole::ProcConfiguration                 $.ProcConfiguration                     is conditional-initialization-attribute;
 has     Str                                                                                     $.PublicSSHKeyValue                     is conditional-initialization-attribute;
 has     Hypervisor::IBM::POWER::HMC::REST::ManagementConsole::VersionInfo                       $.VersionInfo                           is conditional-initialization-attribute;
+has     Hypervisor::IBM::POWER::HMC::REST::ManagementConsole::WebObjectModelVersion             $.WebObjectModelVersion                 is conditional-initialization-attribute;
 
-method  xml-name-exceptions () { return set <updated link generator entry>; }
+method  xml-name-exceptions () { return set <Metadata>; }
 
 submethod TWEAK {
     self.config.diag.post:      self.^name ~ '::' ~ &?ROUTINE.name if %*ENV<HIPH_SUBMETHOD>;
@@ -82,6 +91,9 @@ method init () {
     }
     $!BaseVersion                           = self.etl-text(:TAG<BaseVersion>,                                                                      :xml($xml-ManagementConsole))                   if self.attribute-is-accessed(self.^name, 'BaseVersion');
     $!BIOS                                  = self.etl-text(:TAG<BIOS>,                                                                             :xml($xml-ManagementConsole))                   if self.attribute-is-accessed(self.^name, 'BIOS');
+    $!Driver                                = self.etl-text(:TAG<Driver>,                                                                           :xml($xml-ManagementConsole), :optional)        if self.attribute-is-accessed(self.^name, 'Driver');
+    $!LicenseID                             = self.etl-text(:TAG<LicenseID>,                                                                        :xml($xml-ManagementConsole), :optional)        if self.attribute-is-accessed(self.^name, 'LicenseID');
+    $!LicenseFirstYear                      = self.etl-text(:TAG<LicenseFirstYear>,                                                                 :xml($xml-ManagementConsole), :optional)        if self.attribute-is-accessed(self.^name, 'LicenseFirstYear');
     if self.attribute-is-accessed(self.^name, 'IFixDetails') {
         my $xml-IFixDetails                 = self.etl-branch(:TAG<IFixDetails>,                                                                    :xml($xml-ManagementConsole));
         my @ifds                            = ();
@@ -105,7 +117,15 @@ method init () {
     }
     if self.attribute-is-accessed(self.^name, 'NetworkInterfaces') {
         my $xml-NetworkInterfaces           = self.etl-branch(:TAG<NetworkInterfaces>,                                                              :xml($xml-ManagementConsole));
-        $!NetworkInterfaces                 = Hypervisor::IBM::POWER::HMC::REST::ManagementConsole::NetworkInterfaces.new(:$!config,                :xml($xml-NetworkInterfaces));                  #%%% has .init()...
+        $!NetworkInterfaces                 = Hypervisor::IBM::POWER::HMC::REST::ManagementConsole::NetworkInterfaces.new(:$!config,                :xml($xml-NetworkInterfaces));
+    }
+    if self.attribute-is-accessed(self.^name, 'TemplateObjectModelVersion') {
+        my $xml-TemplateObjectModelVersion  = self.etl-branch(:TAG<TemplateObjectModelVersion>,                                                     :xml($xml-ManagementConsole));
+        $!TemplateObjectModelVersion        = Hypervisor::IBM::POWER::HMC::REST::ManagementConsole::TemplateObjectModelVersion.new(:$!config,       :xml($xml-TemplateObjectModelVersion));
+    }
+    if self.attribute-is-accessed(self.^name, 'UserObjectModelVersion') {
+        my $xml-UserObjectModelVersion      = self.etl-branch(:TAG<UserObjectModelVersion>,                                                         :xml($xml-ManagementConsole));
+        $!UserObjectModelVersion            = Hypervisor::IBM::POWER::HMC::REST::ManagementConsole::UserObjectModelVersion.new(:$!config,           :xml($xml-UserObjectModelVersion));
     }
     if self.attribute-is-accessed(self.^name, 'ProcConfiguration') {
         my $xml-ProcConfiguration           = self.etl-branch(:TAG<ProcConfiguration>,                                                              :xml($xml-ManagementConsole));
@@ -115,6 +135,10 @@ method init () {
     if self.attribute-is-accessed(self.^name, 'VersionInfo') {
         my $xml-VersionInfo                 = self.etl-branch(:TAG<VersionInfo>,                                                                    :xml($xml-ManagementConsole));
         $!VersionInfo                       = Hypervisor::IBM::POWER::HMC::REST::ManagementConsole::VersionInfo.new(:$!config,                      :xml($xml-VersionInfo));
+    }
+    if self.attribute-is-accessed(self.^name, 'WebObjectModelVersion') {
+        my $xml-WebObjectModelVersion       = self.etl-branch(:TAG<WebObjectModelVersion>,                                                          :xml($xml-ManagementConsole));
+        $!WebObjectModelVersion             = Hypervisor::IBM::POWER::HMC::REST::ManagementConsole::WebObjectModelVersion.new(:$!config,            :xml($xml-WebObjectModelVersion));
     }
     $!xml                                   = Nil;
     $!initialized                           = True;
